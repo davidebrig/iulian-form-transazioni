@@ -44,7 +44,7 @@
     // Funzione per recuperare le categorie dallo script Apps Script
     async function fetchCategories() {
       try {
-        const response = await fetch('https://script.google.com/macros/s/AKfycbzeiowpHadG8mweDUUcSGNFpDi3mzky9wIvuQXuMbIFMO1CUGcj8tz8EN5RR2T4ISgp/exec?action=getCategories');
+        const response = await fetch('https://script.google.com/macros/s/AKfycbyCADbYKvP52oWNqt6D4a78-mPZMKaqt1ycbGm2uGRS-TkKtG0_QrZZ_9XIMKIQX9SO/exec?action=getCategories');
         const data = await response.json();
     
         const categorySelect = document.getElementById('category');
@@ -81,7 +81,7 @@
       loadingSpinner.style.display = 'inline-block';
     
       try {
-        const response = await fetch('https://script.google.com/macros/s/AKfycbzeiowpHadG8mweDUUcSGNFpDi3mzky9wIvuQXuMbIFMO1CUGcj8tz8EN5RR2T4ISgp/exec', {
+        const response = await fetch('https://script.google.com/macros/s/AKfycbyCADbYKvP52oWNqt6D4a78-mPZMKaqt1ycbGm2uGRS-TkKtG0_QrZZ_9XIMKIQX9SO/exec', {
           method: 'POST',
           headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
           body: data
