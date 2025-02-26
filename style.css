@@ -17,6 +17,7 @@ body {
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
   width: 90%;
   max-width: 400px;
+  margin: 20px;
 }
 
 h2 {
@@ -31,7 +32,7 @@ label {
 }
 
 input, select {
-  width: 100%;
+  width: calc(100% - 20px);
   padding: 12px;
   border: none;
   border-radius: 6px;
@@ -71,5 +72,6 @@ button.submit-button:hover {
   input, select, button {
     font-size: 14px;
     padding: 10px;
+    width: 100%;
   }
 }
