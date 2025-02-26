@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Inserisci Transazione</title>
+  <title>Iulian ↔️ Registra transazione</title>
   <style>
     /* Stile generale */
     body {
@@ -39,7 +39,7 @@
     }
 
     input, select {
-      width: calc(100% - 20px);
+      width: 100%;
       padding: 12px;
       border: none;
       border-radius: 6px;
@@ -47,6 +47,7 @@
       margin-top: 5px;
       background-color: #351f4f;
       color: #ffffff;
+      box-sizing: border-box;
     }
 
     input:focus, select:focus {
@@ -79,14 +80,13 @@
       input, select, button {
         font-size: 14px;
         padding: 10px;
-        width: 100%;
       }
     }
   </style>
 </head>
 <body>
   <div class="form-container">
-    <h2>Inserisci una Nuova Transazione</h2>
+    <h2>↔️ Registra transazione</h2>
     <form id="transaction-form">
       <label for="date">Data</label>
       <input type="date" id="date" name="date" required>
