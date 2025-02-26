@@ -1,87 +1,82 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Inserisci Transazione</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 20px;
-        }
-        label {
-            display: block;
-            margin-top: 10px;
-        }
-        input, select, button {
-            width: 100%;
-            padding: 10px;
-            margin-top: 5px;
-        }
-    </style>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Inserisci Transazione</title>
+  <!-- Collegamento al foglio di stile esterno -->
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
+  <div class="form-container">
     <h2>Inserisci una Nuova Transazione</h2>
     <form id="transactionForm">
-        <label for="date">Data</label>
-        <input type="date" id="date" name="date" required>
+      <label for="date">Data</label>
+      <input type="date" id="date" name="date" required>
 
-        <label for="amount">Importo</label>
-        <input type="number" id="amount" name="amount" step="0.01" required>
+      <label for="amount">Importo</label>
+      <input type="number" id="amount" name="amount" step="0.01" required>
 
-        <label for="description">Descrizione</label>
-        <input type="text" id="description" name="description" required>
+      <label for="description">Descrizione</label>
+      <input type="text" id="description" name="description" required>
 
-        <label for="category">Categoria</label>
-        <select id="category" name="category" required>
-            <option value="">Seleziona una categoria</option>
-        </select>
+      <label for="category">Categoria</label>
+      <!-- L'id del select è "category" in modo da essere coerente con il JS -->
+      <select id="category" name="category" required>
+        <option value="">Seleziona una categoria</option>
+      </select>
 
-        <label for="class">Classe</label>
-        <select id="class" name="class" required>
-            <option value="necessità">Necessità</option>
-            <option value="extra">Extra</option>
-        </select>
+      <label for="class">Classe</label>
+      <select id="class" name="class" required>
+        <option value="necessità">Necessità</option>
+        <option value="extra">Extra</option>
+      </select>
 
-        <button type="submit">Invia</button>
+      <button type="submit" class="submit-button">Invia</button>
     </form>
-
     <p id="message"></p>
+  </div>
 
-    <script>
-        async function fetchCategories() {
-          try {
-            const response = await fetch('https://script.google.com/macros/s/AKfycbxWyH8Sf1Bha-I1XyEGr-icebgvkRza6O-25-15cMpow_8dsVMweZNR04p2ndBKM7bO/exec?action=getCategories');
-            const data = await response.json();
-        
-            const categorySelect = document.getElementById('subcategory'); // Cambia id se necessario
-            categorySelect.innerHTML = '<option value="">Seleziona una categoria</option>'; // Reset
-        
-            data.categories.forEach(category => {
-              const option = document.createElement('option');
-              option.value = category;
-              option.textContent = category;
-              categorySelect.appendChild(option);
-            });
-          } catch (error) {
-            console.error('Errore nel recupero delle categorie:', error);
-          }
-        }
-
-        document.getElementById('transactionForm').addEventListener('submit', async function(event) {
-            event.preventDefault();
-            const formData = new FormData(event.target);
-            const params = new URLSearchParams(formData).toString();
-            const response = await fetch('https://script.google.com/macros/s/AKfycbxWyH8Sf1Bha-I1XyEGr-icebgvkRza6O-25-15cMpow_8dsVMweZNR04p2ndBKM7bO/exec', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-                body: params
-            });
-            const result = await response.json();
-            document.getElementById('message').textContent = result.success ? "Transazione aggiunta con successo!" : `Errore: ${result.message}`;
-            if (result.success) event.target.reset();
+  <script>
+    async function fetchCategories() {
+      try {
+        const response = await fetch('https://script.google.com/macros/s/AKfycbxW8zeAv6UmExj4LVnnpa3nyj_12D0GdSEHNnVu9y2mC9HTqvIH_D2E39YmBIGs_N8W/exec?action=getCategories');
+        const data = await response.json();
+    
+        const categorySelect = document.getElementById('category'); // Usando l'id corretto
+        categorySelect.innerHTML = '<option value="">Seleziona una categoria</option>'; // Reset
+    
+        data.categories.forEach(category => {
+          const option = document.createElement('option');
+          option.value = category;
+          option.textContent = category;
+          categorySelect.appendChild(option);
         });
+      } catch (error) {
+        console.error('Errore nel recupero delle categorie:', error);
+      }
+    }
 
-        window.onload = fetchCategories;
-    </script>
+    document.getElementById('transactionForm').addEventListener('submit', async function(event) {
+      event.preventDefault();
+      const formData = new FormData(event.target);
+      const params = new URLSearchParams(formData).toString();
+      try {
+        const response = await fetch('https://script.google.com/macros/s/AKfycbxW8zeAv6UmExj4LVnnpa3nyj_12D0GdSEHNnVu9y2mC9HTqvIH_D2E39YmBIGs_N8W/exec', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+          body: params
+        });
+        const result = await response.json();
+        document.getElementById('message').textContent = result.success 
+          ? "Transazione aggiunta con successo!" 
+          : `Errore: ${result.message}`;
+        if (result.success) event.target.reset();
+      } catch (error) {
+        document.getElementById('message').textContent = "Errore nella comunicazione col server.";
+      }
+    });
+
+    window.onload = fetchCategories;
+  </script>
 </body>
 </html>
